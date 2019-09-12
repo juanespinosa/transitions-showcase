@@ -1,0 +1,32 @@
+@import './animations';
+
+$white-color: white;
+$transparent-color: transparent;
+
+$primary-color: #FC644D;
+$secondary-color: #708090;
+$third-color: #F5F5F5;
+
+@mixin primary-button {
+    color: $primary-color;
+    font-size: 3rem;
+    padding: 1rem 3rem;
+    border: 0;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5rem;
+    outline: none;
+}
+
+@mixin input {
+    width: 100%;
+    height: 2rem;
+    border: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $secondary-color;
+}
+
+.hidden {
+    opacity: 0;
+}
