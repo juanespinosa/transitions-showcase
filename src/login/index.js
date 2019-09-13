@@ -5,38 +5,76 @@ import { faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
 import './style.scss';
 
 class Login extends React.PureComponent {
+    state = {
+        fade_in: false,
+        login_button_fade_in: false,
+        username_fade_in: true,
+        password_fade_in: true,
+        welcome_fade_in: true
+    };
     
     doLogin = (e) => {
-        const loginButton = document.getElementById('login__button');
-        loginButton.classList.toggle('login__button--clicked');
-
-        this.toggleVisibility('username');
+        this.setState({
+            fade_in: true,
+            login_button_fade_in: true
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    fade_in: false,
+                    username_fade_in: false
+                });
+            }, 500);
+        });
     }
 
     toggleVisibility = (toToggle) => {
-        const toToggleContainer = document.getElementById(`login__${toToggle}-container`);
-        toToggleContainer.classList.toggle(`login__${toToggle}-container--visible`);
     }
 
     usernameDone = () => {
-        console.log('clicked');
-        this.toggleVisibility('username');
-        this.toggleVisibility('password');
+        this.setState({
+            username_fade_in: true
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    password_fade_in: false
+                });
+            }, 500);
+        });
     }
+
+    passwordDone = () => {
+        this.setState({
+            password_fade_in: true
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    welcome_fade_in: false
+                }, () => {
+                    setTimeout(() => {
+                        this.setState({welcome_fade_in: true});
+                    }, 500);
+                });
+            }, 500);
+        });
+    }
+
+    getClassName = (baseClass, isFadeIn) => `${baseClass} ${isFadeIn ? baseClass+'--fade-in' : baseClass+'--fade-out'}`
+
+    getWelcomeClassName = (baseClass, isFadeIn) => `${baseClass} ${isFadeIn ? baseClass+'--fade-in ' + baseClass + '--hidden' : baseClass+'--fade-out'}`
 
     render = () => {
         return (
             <div className="login">
-                <div className="login__content">
+                <div className={this.getClassName('login__content', this.state.fade_in)}>
                     <button
-                        className="login__button"
+                        className={this.getClassName('login__button', this.state.login_button_fade_in)}
                         id="login__button"
                         onClick={this.doLogin}
                     >
                         login
                     </button>
                     <div
-                        className="login__username-container"
+                        className={this.getClassName('login__username-container', this.state.username_fade_in)}
                         id="login__username-container"
                     >
                         <FontAwesomeIcon className="login__username-icon" icon={faUser} />
@@ -47,10 +85,13 @@ class Login extends React.PureComponent {
                                 type="text"
                             />
                         </div>
-                        <FontAwesomeIcon className="login__username-next" icon={faChevronRight} />
+                        <FontAwesomeIcon
+                            onClick={this.usernameDone}
+                            className="login__username-next" icon={faChevronRight}
+                        />
                     </div>
                     <div
-                        className="login__password-container"
+                        className={this.getClassName('login__password-container', this.state.password_fade_in)}
                         id="login__password-container"
                     >
                         <FontAwesomeIcon className="login__password-icon" icon={faUser} />
@@ -62,9 +103,12 @@ class Login extends React.PureComponent {
                             />
                         </div>
                         <FontAwesomeIcon
-                            onClick={this.usernameDone}
+                            onClick={this.passwordDone}
                             className="login__password-next" icon={faChevronRight}
                         />
+                    </div>
+                    <div className={this.getClassName('login__welcome', this.state.welcome_fade_in)}>
+                        Welcome!
                     </div>
                 </div>
             </div>

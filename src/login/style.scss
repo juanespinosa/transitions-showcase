@@ -8,15 +8,26 @@
     &__content {
         border-radius: 5rem;
         border: 2px solid $primary-color;
-        width: auto;
         height: 5rem;
+        min-width: 5rem;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        overflow: hidden;
 
         display: flex;
-        flex-direction: column;
+        flex: 1;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        box-sizing: border-box;
+
+        &--fade-in {
+        }
+
+        &--fade-out {
+        }
     }
 
     &__username {
@@ -30,18 +41,53 @@
     &__button {
         @include primary-button;
         background-color: transparent;
-        opacity: 1;
-        width: 30rem;
+        overflow: hidden;
 
-        transition:
-            all         500ms,
-            opacity     500ms ease,
-            font-size   9ms linear 490ms,
-            padding     9ms linear 490ms;
-        &--clicked {
-            opacity: 0;
-            font-size: 0;
+        &--fade-in {
+            width: 0;
             padding: 0;
+            transform: translateX(5rem);
+
+            transition:
+                all   500ms ease;
+        }
+
+        &--fade-out {
+            opacity: 1;
+            width: 20rem;
+            transform: translateX(0);
+
+            transition:
+                all   500ms ease;
+        }
+    }
+
+    &__welcome {
+        color: $primary-color;
+        height: 5rem;
+        font-size: 2rem;
+        padding: 1rem;
+        text-align: center;
+        
+        &--hidden {
+            display: none;
+        }
+
+        &--fade-in {
+            opacity: 0;
+            transform: scale(5);
+
+            transition:
+                all   500ms ease 2000ms;
+        }
+
+        &--fade-out {
+            display: inline-block;
+            opacity: 1;
+            transform: scale(1);
+
+            transition:
+                all   500ms ease;
         }
     }
 }
