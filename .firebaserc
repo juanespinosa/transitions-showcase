@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "juange-showcase",
+    "development": "juange-showcase"
+  }
+}

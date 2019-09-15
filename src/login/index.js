@@ -49,23 +49,36 @@ class Login extends React.PureComponent {
             setTimeout(() => {
                 this.setState({
                     welcome_fade_in: false
-                }, () => {
-                    setTimeout(() => {
-                        this.setState({welcome_fade_in: true});
-                    }, 500);
-                });
+                }, () => { this.login() });
             }, 500);
         });
     }
 
+    login = () => {
+        setTimeout(() => {
+            this.props.login();
+        }, 2000);
+    }
+
     getClassName = (baseClass, isFadeIn) => `${baseClass} ${isFadeIn ? baseClass+'--fade-in' : baseClass+'--fade-out'}`
 
-    getWelcomeClassName = (baseClass, isFadeIn) => `${baseClass} ${isFadeIn ? baseClass+'--fade-in ' + baseClass + '--hidden' : baseClass+'--fade-out'}`
+    getWelcomeClassName = (baseClass, isFadeIn) => {
+        let className = `${baseClass} ${isFadeIn ? baseClass+'--fade-in ' : baseClass+'--fade-out'}`;
+        
+        if (!this.state.welcome_fade_in) {
+            className += ` ${baseClass}--without-border`;
+        }
+        else {
+            className += ` ${baseClass}--with-border`;
+        }
+
+        return className;
+    }
 
     render = () => {
         return (
             <div className="login">
-                <div className={this.getClassName('login__content', this.state.fade_in)}>
+                <div className={this.getWelcomeClassName('login__content', this.state.fade_in)}>
                     <button
                         className={this.getClassName('login__button', this.state.login_button_fade_in)}
                         id="login__button"

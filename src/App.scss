@@ -1,0 +1,75 @@
+@import './globals';
+
+.App {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+
+    &__right {
+        display: flex;
+        flex-direction: column;
+
+        &--collapsed {
+            width: 0%;
+        }
+        &--expanded {
+            width: 100%;
+
+            transition:
+                width 1ms ease 500ms;
+        }
+    }
+
+    &__toolbar {
+        width: 100%;
+        background-color: $primary-color;
+
+        &--expanded {
+            height: 70px;
+
+            transition:
+                height 300ms ease 510ms;
+        }
+
+        &--collapsed {
+            height: 0;
+        }
+    }
+
+    &__container {
+        width: 100%;
+        height: 100%;
+        background-color: $third-color;
+
+        &--expanded {
+            opacity: 1;
+
+            transition:
+                opacity 300ms ease 510ms;
+        }
+
+        &--collapsed {
+            opacity: 0;
+        }
+    }
+}
+
+.main_panel {
+    background-color: darken($secondary-color, 25%);
+    position: relative;
+    height: 100%;
+
+    &--expanded {
+        width: 100%;
+
+        transition:
+            all 500ms ease;
+    }
+
+    &--collapsed {
+        width: 200px;
+
+        transition:
+            all 500ms ease;
+    }
+}

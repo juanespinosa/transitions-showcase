@@ -1,13 +1,8 @@
 @import '../globals';
 
 .login {
-    background-color: darken($secondary-color, 25%);
-    position: relative;
-    height: 100%;
-
     &__content {
         border-radius: 5rem;
-        border: 2px solid $primary-color;
         height: 5rem;
         min-width: 5rem;
         position: absolute;
@@ -27,6 +22,14 @@
         }
 
         &--fade-out {
+        }
+
+        &--without-border {
+            border: 0;
+        }
+
+        &--with-border {
+            border: 2px solid $primary-color;
         }
     }
 
@@ -66,14 +69,11 @@
         color: $primary-color;
         height: 5rem;
         font-size: 2rem;
-        padding: 1rem;
         text-align: center;
         
-        &--hidden {
-            display: none;
-        }
-
         &--fade-in {
+            padding: 0;
+            width: 0;
             opacity: 0;
             transform: scale(5);
 
@@ -82,7 +82,8 @@
         }
 
         &--fade-out {
-            display: inline-block;
+            padding: 1rem;
+            width: 20rem;
             opacity: 1;
             transform: scale(1);
 
